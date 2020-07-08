@@ -2,37 +2,64 @@
 
 class Conta
 {
-    public string $cpfTitular;
-    public string $nomeTitular;
-    public float $saldo;
+    private string $cpfTitular;
+    private string $nomeTitular;
+    private float $saldo = 0;
 
 
     public function sacar(float $valorASacar)
     {
         if ($valorASacar > $this->saldo) {
             echo "Saldo indisponivel";
-        } else {
-            $this->saldo -= $valorASacar;
+            return;
         }
+
+        $this->saldo -= $valorASacar;
     }
-    public function depositar(float $valorADepositar):void
+    public function depositar(float $valorADepositar): void
     {
         if ($valorADepositar < 0) {
             echo "você nao pode depositar um valor negativo";
-        } else {
-            $this->saldo += $valorADepositar;
+            return;
         }
+
+        $this->saldo += $valorADepositar;
+    }
+
+    public function transferir(float $valorTransferir, Conta $contaDestino): void
+    {
+        if ($valorTransferir > $this->saldo) {
+            echo "Saldo Indisponivel";
+            return;
+        }
+
+        $this->sacar($valorTransferir);
+        $contaDestino->depositar($valorTransferir);
+    }
+   
+    public function recuperaSaldo(): float
+    {
+        return $this->saldo;
+    }
+
+    public function defineCpfTitular(string $cpf): void
+    {
+        $this->cpfTitular = $cpf;
+    }
+
+    public function recuperaCpfTitular(): string
+    {
+        return $this->cpfTitular;
+    }
+
+    public function defineNomeTitular(string $nome): void
+    {
+        $this->nomeTitular = $nome;
+    }
+
+    public function recuperaNomeTitular(): string
+    {
+        return $this->nomeTitular;
     }
 }
 
-
-
-$primeiraConta = new Conta();
-$primeiraConta->$cpfTitular;
-$primeiraConta->$nomeTitular;
-$primeiraConta->$saldo;
-
-$novaConta = new Conta();
-$novaConta->$cpfTitular;
-$novaConta->$nomeTitular;
-$novaConta->$saldo;
