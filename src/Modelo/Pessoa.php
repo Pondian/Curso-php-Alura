@@ -1,27 +1,32 @@
 <?php
+namespace Alura\Banco\Modelo;
 
-require_once 'src/Cpf.php';
-
-class Titular
+class Pessoa
 {
+
+    protected string $nome;
     private Cpf $cpf;
-    private string $nome;
 
 
-    public function __construct(Cpf $cpf, string $nome)
+
+
+    public function __construct(string $nome, Cpf $cpf)
     {
-        $this->cpf = $cpf;
         $this->nome = $nome;
+        $this->cpf = $cpf;
         $this->validaNomeTitular($nome);
     }
-
 
     public function recuperaNome(): string
     {
         return $this->nome;
     }
+    public function recuperacpf(): string
+    {
+        return $this->cpf->recuperaNumero();
+    }
 
-    private function validaNomeTitular(string $nomeTitular)
+    protected function validaNomeTitular(string $nomeTitular)
     {
         if (strlen($nomeTitular) < 4) {
             echo "impossivel nome precisa ter no minimo 4 caracteres";
