@@ -21,6 +21,8 @@ class Conta
     {
         self::$numeroDeContas--;
     }
+
+    
     public function sacar(float $valorASacar)
     {
         if ($valorASacar > $this->saldo) {
