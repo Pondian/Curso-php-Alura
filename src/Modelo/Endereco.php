@@ -2,8 +2,18 @@
 
 namespace Alura\Banco\Modelo;
 
+
+use AcessoPropriedades;
+
+/**
+ *@property-read string $cidade
+ *@property-read string $bairro
+ *@property-read string $numero
+ *@property-read string $rua  
+*/
 class Endereco
 {
+    use AcessoPropriedades; 
     private string $cidade;
     private string $bairro;
     private string $rua;
@@ -40,4 +50,13 @@ class Endereco
     {
         return $this->numero;
     }
+
+    public function __toString(): string
+    {
+        return "{$this->rua}, {$this->numero}, {$this->bairro}, {$this->cidade}";
+    }
+
+   
+
+   
 }

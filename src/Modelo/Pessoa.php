@@ -1,11 +1,13 @@
 <?php
 namespace Alura\Banco\Modelo;
 
-class Pessoa
-{
+use AcessoPropriedades;
 
+abstract class Pessoa
+{
+    use AcessoPropriedades; 
     protected string $nome;
-    private Cpf $cpf;
+    private Cpf $cpf; 
 
 
 
@@ -14,7 +16,7 @@ class Pessoa
     {
         $this->nome = $nome;
         $this->cpf = $cpf;
-        $this->validaNomeTitular($nome);
+        $this->validaNome($nome);
     }
 
     public function recuperaNome(): string
@@ -26,7 +28,7 @@ class Pessoa
         return $this->cpf->recuperaNumero();
     }
 
-    protected function validaNomeTitular(string $nomeTitular)
+    final protected function validaNome(string $nomeTitular)
     {
         if (strlen($nomeTitular) < 4) {
             echo "impossivel nome precisa ter no minimo 4 caracteres";
