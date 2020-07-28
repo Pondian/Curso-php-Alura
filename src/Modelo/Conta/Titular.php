@@ -6,6 +6,7 @@ use  Alura\Banco\Modelo\Pessoa;
 use  Alura\Banco\Modelo\Cpf;
 use  Alura\Banco\Modelo\Endereco;
 use Autenticavel;
+use InvalidArgumentException;
 
 class Titular extends Pessoa implements Autenticavel
 {
@@ -18,6 +19,7 @@ class Titular extends Pessoa implements Autenticavel
         parent::__construct($nome, $cpf);
         $this->endereco = $endereco;
     }
+
 
     public function recuperaCpf(): string
     {
@@ -38,7 +40,6 @@ class Titular extends Pessoa implements Autenticavel
 
     public function podeAutenticar(string $senha): bool
     {
-        return $senha==="abc";
+        return $senha === "abc";
     }
-    
 }

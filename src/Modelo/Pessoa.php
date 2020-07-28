@@ -1,20 +1,18 @@
 <?php
+
 namespace Alura\Banco\Modelo;
 
 use AcessoPropriedades;
+use NomeCurtoException;
 
 abstract class Pessoa
 {
-    use AcessoPropriedades; 
+    use AcessoPropriedades;
     protected string $nome;
-    private Cpf $cpf; 
-
-
-
+    private Cpf $cpf;
 
     public function __construct(string $nome, Cpf $cpf)
     {
-        $this->nome = $nome;
         $this->cpf = $cpf;
         $this->validaNome($nome);
     }
@@ -28,12 +26,12 @@ abstract class Pessoa
         return $this->cpf->recuperaNumero();
     }
 
-    final protected function validaNome(string $nomeTitular)
+    final protected function validaNome(string $nomeTitular): void
     {
         if (strlen($nomeTitular) < 4) {
-            echo "impossivel nome precisa ter no minimo 4 caracteres";
-            exit();
+            throw new  NomeCurtoException($nomeTitular);
         }
-    }
 
+        $this->nome = $nomeTitular;
+    }
 }

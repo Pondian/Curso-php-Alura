@@ -2,6 +2,8 @@
 
 namespace Alura\Banco\Modelo;
 
+use InvalidArgumentException;
+
 final class Cpf
 {
 
@@ -9,8 +11,13 @@ final class Cpf
 
     public function __construct(string $numero)
     {
-        $this->cpf = $numero;
 
+
+        try {
+            $this->cpf = $numero;
+        } catch (InvalidArgumentException $cpfInvalido) {
+            echo "Esse cpf é invalido ";
+        }
 
 
         $numero = filter_var($numero, FILTER_VALIDATE_REGEXP, [
@@ -20,8 +27,7 @@ final class Cpf
         ]);
 
         if ($numero === false) {
-            echo "Cpf inválido";
-            exit();
+            throw new InvalidArgumentException();
         }
 
         $this->numero = $numero;
